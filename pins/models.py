@@ -10,3 +10,4 @@ class Pin(models.Model):
     likes = models.IntegerField(default=0)
     description = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
+
