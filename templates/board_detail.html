@@ -1,6 +1,4 @@
-{% extends 'base.html' %} 
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div
   class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
@@ -14,4 +12,19 @@
   </div>
 </div>
 
+{% if board_pins %} 
+{% for pin in board_pins %}
+<div
+  class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+  style="max-width: 200px"
+>
+  <div class="card-header">
+    <h4>{{ pin.title }}</h4>
+  </div>
+  <div class="card-body">
+    <img src="/media/{{ pin.photo }}" alt="pinphoto" width="160px" />
+  </div>
+</div>
+{% endfor %} 
+{% endif %} 
 {% endblock %}

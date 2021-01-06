@@ -34,6 +34,7 @@ class AddBoardView(View):
 class BoardView(View):
     def get(self, request, board_id):
         my_board = Board.objects.get(id=board_id)
+        board_pins = my_board.pins.values()
         html = "board_detail.html"
-        context = {'board': my_board }
+        context = {'board': my_board, 'board_pins': board_pins}
         return render(request, html, context)
