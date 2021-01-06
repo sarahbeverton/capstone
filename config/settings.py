@@ -27,8 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = "/login/"
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'boards',
+    'pins',
+    'pinusers',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,15 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Media files
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Auth settings
+
+LOGIN_URL = "/login/"
+
+AUTH_USER_MODEL = "pinusers.PinUser"
