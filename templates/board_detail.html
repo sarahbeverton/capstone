@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<div
+  class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+  style="max-width: 50em"
+>
+  <div class="card-header">
+    <h4>{{ board.title }}</h4>
+  </div>
+  <div class="card-body">
+    <h5>{{ board.description }}</h5>
+  </div>
+</div>
+
+{% endblock %}
