@@ -10,3 +10,6 @@ class Board(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     pins = models.ManyToManyField(Pin, blank=True, symmetrical=False)
+
+    def __str__(self):
+        return self.title
