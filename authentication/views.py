@@ -14,12 +14,12 @@ class IndexView(View):
 
 class SignUpView(View):
     form_class = SignUpForm
-    html = "generic_form.html"
+    html = "signup_form.html"
     context = {}
 
     def get(self, request):
         form = SignUpForm()
-        return render(request, "generic_form.html", {'form': form})
+        return render(request, "signup_form.html", {'form': form})
 
     def post(self, request):
         form = SignUpForm(request.POST)
@@ -32,15 +32,15 @@ class SignUpView(View):
                 first_name=data['first_name'],
                 last_name=data['last_name']
             )
-            return HttpResponseRedirect('/success/')
+            return HttpResponseRedirect(reverse("homepage"))
 
-        return render(request, "generic_form.html", {'form': form})
+        return render(request, "signup_form.html", {'form': form})
 
 
 class LogInView(View):
     def get(self, request):
         form = LoginForm()
-        return render(request, "generic_form.html", {'form': form})
+        return render(request, "login_form.html", {'form': form})
 
     def post(self, request):
         form = LoginForm(request.POST)
@@ -53,10 +53,10 @@ class LogInView(View):
                 )
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse("home")))
+                return HttpResponseRedirect(request.GET.get('next', reverse("homepage")))
 
 
 class LogOutView(View):
     def get(self, request):
         logout(request)
-        return HttpResponseRedirect(reverse("loginview"))
+        return HttpResponseRedirect(reverse("login"))
