@@ -6,6 +6,7 @@ from boards.forms import BoardForm
 from pinusers.models import PinUser
 # Create your views here.
 
+
 class AddBoardView(View):
     form_class = BoardForm
 
@@ -26,9 +27,9 @@ class AddBoardView(View):
                 description=data['description'],
                 user=current_user
             )
-            #will change below to profile page once that url is created
+            # will change below to profile page once that url is created
             return HttpResponseRedirect(reverse("homepage"))
-        #need to add error 400, 500 handling
+        # need to add error 400, 500 handling
 
 
 class BoardView(View):
