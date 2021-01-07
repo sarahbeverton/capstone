@@ -12,19 +12,24 @@
   </div>
 </div>
 
-{% if board_pins %} 
-{% for pin in board_pins %}
-<div
-  class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
-  style="max-width: 200px"
->
-  <div class="card-header">
-    <h4>{{ pin.title }}</h4>
+{% if board_pins %}
+<div class="row">
+  {% for pin in board_pins %}
+  <div class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded">
+    <div class="card-header">
+      <h4>{{ pin.title }}</h4>
+    </div>
+    <div class="card-body col-lg-3 col-md-4 col-xs-6">
+      <img
+        src="/media/{{ pin.photo }}"
+        alt="pinphoto"
+        class="rounded mx-auto"
+      />
+    </div>
+    <div class="card-body">
+      <p>{{ pin.description }}</p>
+    </div>
   </div>
-  <div class="card-body">
-    <img src="/media/{{ pin.photo }}" alt="pinphoto" width="160px" />
-  </div>
+  {% endfor %}
 </div>
-{% endfor %} 
-{% endif %} 
-{% endblock %}
+{% endif %} {% endblock %}
