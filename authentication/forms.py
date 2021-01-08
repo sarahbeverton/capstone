@@ -9,6 +9,7 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
         model = PinUser
         fields = (
@@ -19,7 +20,7 @@ class SignUpForm(forms.ModelForm):
             'last_name')
     widgets = {
         'email': forms.TextInput(),
-        'password': forms.CharField(widget=forms.PasswordInput()),
+        'password': forms.PasswordInput(),
         'username': forms.TextInput(),
         'first_name': forms.TextInput(),
         'last_name': forms.TextInput()
