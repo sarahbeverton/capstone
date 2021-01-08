@@ -9,5 +9,6 @@ from boards.models import Board
 def profile(request):
     current_user = PinUser.objects.get(username=request.user.username)
     boards = Board.objects.filter(user=current_user)
-    context = {'boards': boards}
+    user_pins = current_user.pins.values()
+    context = {'boards': boards, 'pins': user_pins}
     return render(request, 'profile.html', context)

@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+  style="max-width: 50em"
+>
+  <div class="card-header">
+    <h4>{{ pin.title }}</h4>
+    <a href="/pin/save/{{ pin.id }}/" class="btn btn-info float-right">Save</a>
+  </div>
+  <div class="card-body col-lg-3 col-md-4 col-xs-6">
+    <img src="/media/{{ pin.photo }}" alt="pinphoto" class="rounded mx-auto" />
+  </div>
+  <div class="card-body">
+    <h5>{{ pin.description }}</h5>
+  </div>
+</div>
+
+{% endblock %}

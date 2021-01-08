@@ -15,17 +15,62 @@
   </div>
   <hr />
   <div class="your-pins" style="width: 100%">
-    <h2 class="text-center">Your Pins</h2>
-  </div>
-  <div class="your-pins" style="width: 100%">
+    <a href="/board/addboard/">Add Board</a>
     <h2 class="text-center">Your Boards</h2>
     <ul>
       {% for board in boards %}
       <li>
-        <a href="/boards/{{ board.id }}/">{{ board.title }}</a>
+        <a href="/board/{{ board.id }}/">{{ board.title }}</a>
       </li>
       {% endfor %}
     </ul>
+  </div>
+  <div class="your-pins" style="width: 100%">
+    <h2 class="text-center">Your Pins</h2>
+  </div>
+  <div class="row">
+    {% for pin in pins %}
+    <div
+      class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+      style="max-width: 20em"
+    >
+      <div class="card-header">
+        <h4>{{ pin.title }}</h4>
+
+        <div class="btn-group float-right">
+          <button
+            type="button"
+            class="btn btn-outline-dark dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Add to Board
+          </button>
+
+          <div class="dropdown-menu">
+            {% if boards %} {% for board in boards %}
+            <a class="dropdown-item" href="/board/{{ board.id }}/save/{{ pin.id }}"
+              >{{ board.title }}</a
+            >
+            {% endfor %} {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="card-body col-lg-3 col-md-4 col-xs-6">
+        <img
+          src="/media/{{ pin.photo }}"
+          alt="pinphoto"
+          class="rounded mx-auto"
+          style="max-width: 18em"
+        />
+      </div>
+      <div class="card-body">
+        <p>{{ pin.description }}</p>
+        <!--<a href="/pin/{{ pin.id }}" class="stretched-link"></a>-->
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

@@ -1,14 +1,39 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %} {% block content %}
 
-{% block content %} 
-
-<div class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded" style="max-width: 50em;">
-    <h1 class="card-header">Pinterest Clone</h1>
-    <h5 class="card-body">This will be so amazing!</h5>
-    <a href="signup/">Sign Up</a>
-    <a href="login/">Log In</a>
-    <a href="logout/">Log Out</a>
-    <a href="profile/">Profile</a>
+<div
+  class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+  style="max-width: 50em"
+>
+  <h1 class="card-header">Pinterest Clone</h1>
+  <h5 class="card-body">This will be so amazing!</h5>
+  <a href="signup/">Sign Up</a>
+  <a href="login/">Log In</a>
+  <a href="logout/">Log Out</a>
+  <a href="profile/">Profile</a>
+</div>
+<div class="row">
+  {% for pin in pins %}
+  <div
+    class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+    style="max-width: 20em"
+  >
+    <div class="card-header">
+      <h4>{{ pin.title }}</h4>
+    </div>
+    <div class="card-body col-lg-3 col-md-4 col-xs-6">
+      <img
+        src="/media/{{ pin.photo }}"
+        alt="pinphoto"
+        class="rounded mx-auto"
+        style="max-width: 18em"
+      />
+    </div>
+    <div class="card-body">
+      <a href="/pin/{{ pin.id }}" class="stretched-link"></a>
+      <p>{{ pin.description }}</p>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock %}

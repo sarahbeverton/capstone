@@ -4,6 +4,7 @@ from django.views.generic import View
 from boards.models import Board
 from boards.forms import BoardForm
 from pinusers.models import PinUser
+from pins.models import Pin
 # Create your views here.
 
 
@@ -39,3 +40,11 @@ class BoardView(View):
         html = "board_detail.html"
         context = {'board': my_board, 'board_pins': board_pins}
         return render(request, html, context)
+
+
+class SaveToBoardView(View):
+    def get(self, request, pin_id, board_id):
+        my_pin = Pin.objects.get(id=pin_id)
+        my_board = Board.objects.get(id=board_id)
+        my_board.pins.add(my_pin)
+        return HttpResponseRedirect(reverse("profile"))
