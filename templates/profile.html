@@ -50,7 +50,7 @@
 
           <div class="dropdown-menu">
             {% if boards %} {% for board in boards %}
-            <a class="dropdown-item" href="/board/{{ board.id }}/"
+            <a class="dropdown-item" href="/board/{{ board.id }}/save/{{ pin.id }}"
               >{{ board.title }}</a
             >
             {% endfor %} {% endif %}

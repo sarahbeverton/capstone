@@ -18,11 +18,3 @@ class SaveView(View):
         my_pin = Pin.objects.get(id=pin_id)
         request.user.pins.add(my_pin)
         return redirect("profile")
-
-
-class SaveToBoardView(View):
-    def get(self, request, pin_id, board_id):
-        my_pin = Pin.objects.get(id=pin_id)
-        my_board = Board.objects.get(id=board_id)
-        my_board.add(my_pin)
-        return redirect("profile")
