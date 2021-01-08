@@ -13,8 +13,10 @@
 </div>
 <div class="row">
   {% for pin in pins %}
-  <div class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
-       style="max-width: 20em;">
+  <div
+    class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+    style="max-width: 20em"
+  >
     <div class="card-header">
       <h4>{{ pin.title }}</h4>
     </div>
@@ -23,12 +25,12 @@
         src="/media/{{ pin.photo }}"
         alt="pinphoto"
         class="rounded mx-auto"
-        style="max-width: 18em;"
+        style="max-width: 18em"
       />
     </div>
     <div class="card-body">
-        <a href="/pin/{{ pin.id }}" class="stretched-link"></a>
-        <p>{{ pin.description }}</p>
+      <a href="/pin/{{ pin.id }}" class="stretched-link"></a>
+      <p>{{ pin.description }}</p>
     </div>
   </div>
   {% endfor %}
