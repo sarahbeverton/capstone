@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('authentication.urls')),
     path('', include('pinusers.urls')),
-    path('boards/', include('boards.urls')),
+    path('board/', include('boards.urls')),
+    path('pin/', include('pins.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

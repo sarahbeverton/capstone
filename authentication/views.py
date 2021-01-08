@@ -3,14 +3,17 @@ from django.views.generic import View
 from django.contrib.auth import logout, login, authenticate
 from authentication.forms import LoginForm, SignUpForm
 from pinusers.models import PinUser
+from pins.models import Pin
 # Create your views here.
 
 
 class IndexView(View):
     def get(self, request):
+        pins = Pin.objects.all().order_by('-created_at')
         html = "index.html"
-        context = {}
+        context = {'pins': pins}
         return render(request, html, context)
+
 
 class SignUpView(View):
     form_class = SignUpForm

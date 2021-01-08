@@ -4,6 +4,7 @@ from django.views.generic import View
 from boards.models import Board
 from boards.forms import BoardForm
 from pinusers.models import PinUser
+from pins.models import Pin
 # Create your views here.
 
 
