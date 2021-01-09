@@ -24,9 +24,9 @@ SECRET_KEY="84-7oqxj7i^hf*#naze*&$94u)oj)818n&kn8@oo#(m4ah%2w#"
 #SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 

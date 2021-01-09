@@ -8,3 +8,7 @@ urlpatterns = [
     path('login/', views.LogInView.as_view(), name="login"),
     path('logout/', views.LogOutView.as_view(), name="logout")
 ]
+
+
+handler404 = 'authentication.views.error_view'
+handler500 = 'authentication.views.server_error_view'
