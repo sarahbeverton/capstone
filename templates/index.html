@@ -1,30 +1,36 @@
 {% extends 'base.html' %} {% block content %}
-
-<div class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded" style="max-width: 50em">
-  <h1 class="card-header">Boardom Killer</h1>
-  <div class="card-body">
-    <p>
-      Are you board? Do you need ideas for a new recipe, or looking for some inspiration to watch your
-      favorite show? Welcome to the Boardom Killer! Upload photos, search for new ideas, find some <em>inspiration</em>
-      and follow other users.
-    </p>
-  </div>
-</div>
-<div class="row">
-  {% for pin in pins %}
-  <div class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded" style="max-width: 20em">
-    <div class="card-header">
-      <h4>{{ pin.title }}</h4>
-    </div>
-    <div class="card-body col-lg-3 col-md-4 col-xs-6">
-      <img src="/media/{{ pin.photo }}" alt="pinphoto" class="rounded mx-auto" style="max-width: 18em" />
-    </div>
+<div class="container">
+  <div
+    class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+    style="max-width: 50em"
+  >
+    <h1 class="card-header">Boardom Killer</h1>
     <div class="card-body">
-      <a href="/pin/{{ pin.id }}" class="stretched-link"></a>
-      <p>{{ pin.description }}</p>
+      <p>
+        Are you board? Do you need ideas for a new recipe, or looking for some
+        inspiration to watch your favorite show? Welcome to the Boardom Killer!
+        Upload photos, search for new ideas, find some <em>inspiration</em>
+        and follow other users.
+      </p>
     </div>
   </div>
-  {% endfor %}
+
+  <div class="card-columns">
+    {% for pin in pins %}
+    <div class="card shadow rounded" style="width: 18em">
+      <a href="/pin/{{ pin.id }}"
+        ><img
+          class="card-img-top img-fluid"
+          src="/media/{{ pin.photo }}"
+          alt="pinphoto"
+      /></a>
+      <div class="card-block ml-1">
+        <h4 class="card-title">{{ pin.title }}</h4>
+        <a href="/pin/{{ pin.id }}" class="stretched-link"></a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}
