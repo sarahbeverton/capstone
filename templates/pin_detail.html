@@ -8,12 +8,10 @@
     <h4>{{ pin.title }}</h4>
     <a href="/pin/save/{{ pin.id }}/" class="btn btn-info float-right">Save</a>
   </div>
-  <div class="card-body col-lg-3 col-md-4 col-xs-6">
-    <img src="/media/{{ pin.photo }}" alt="pinphoto" class="rounded mx-auto" />
-  </div>
   <div class="card-body">
-    <h5>{{ pin.description }}</h5>
-  </div>
+    <img src="/media/{{ pin.photo }}" alt="pinphoto" class="rounded mx-auto" style="max-width: 30em;" />
+    <h5 class="float-right">{{ pin.description }}</h5>
+  </div>  
 </div>
 
 {% endblock %}
