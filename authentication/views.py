@@ -4,7 +4,7 @@ from django.contrib.auth import logout, login, authenticate
 from authentication.forms import LoginForm, SignUpForm
 from pinusers.models import PinUser
 from pins.models import Pin
-from django.http import Http404
+
 # Create your views here.
 
 
