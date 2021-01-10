@@ -11,6 +11,10 @@ body {
     flex: 1 1 auto;
 }
 
+.card-columns a:hover {
+    cursor: zoom-in;
+}
+
 @media (min-width: 360px)
 {
     .card-columns {

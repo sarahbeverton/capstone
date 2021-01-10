@@ -44,7 +44,9 @@ class BoardView(View):
 
 class SaveToBoardView(View):
     def get(self, request, pin_id, board_id):
+        current_user = PinUser.objects.get(username=request.user.username)
         my_pin = Pin.objects.get(id=pin_id)
         my_board = Board.objects.get(id=board_id)
         my_board.pins.add(my_pin)
+        current_user.pins.add(my_pin)
         return HttpResponseRedirect(reverse("profile"))

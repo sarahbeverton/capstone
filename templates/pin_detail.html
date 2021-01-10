@@ -38,7 +38,7 @@
               {% if pin.url %}
               <a href="{{ pin.url }}">Go to source</a>
               {% endif %}
-              <p class="card-text">{{ pin.description }}</p>
+              <p class="card-text">{{ pin.description|truncatechars:300 }}</p>
             </div>
           </div>
         </div>
