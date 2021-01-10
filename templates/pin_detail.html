@@ -35,6 +35,9 @@
               </div>
               <a href="/pin/save/{{ pin.id }}/" class="btn btn-danger">Save</a>
               <h4 class="card-title">{{ pin.title }}</h4>
+              {% if pin.url %}
+              <a href="{{ pin.url }}">Go to source</a>
+              {% endif %}
               <p class="card-text">{{ pin.description }}</p>
             </div>
           </div>

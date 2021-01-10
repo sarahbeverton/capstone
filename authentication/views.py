@@ -9,33 +9,16 @@ from pins.models import Pin
 
 # Create your views here.
 
-def get_pin_queryset(query=None):
-    queryset = []
-    queries = query.split(" ")
-    for q in queries:
-        pins = Pin.objects.filter(
-            Q(title_contains) |
-            Q(description_contains)
-        ).distinct()
-
-        for pin in pins:
-            queryset.append(pin)
-    return list(set(queryset))
-
-
-def search_view(request):
-    context = {}
-    html = "index.html"
-    query = ""
-    if request.GET:
-        query = request.GET['q']
-        context['query'] = str(query)
-
-
-
 class IndexView(View):
     def get(self, request):
-        pins = Pin.objects.all().order_by('-created_at')
+        search_pin = request.GET.get('search')
+
+        if search_pin:
+            pins = Pin.objects.filter(Q(title__icontains=search_pin) | 
+                                      Q(description__icontains=search_pin))
+        else:
+            pins = Pin.objects.all().order_by('-created_at')
+     
         html = "index.html"
         context = {'pins': pins}
         return render(request, html, context)

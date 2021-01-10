@@ -34,8 +34,8 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Following</a>
             </li>
-            <form class="d-flex" method="get">
-              <input class="form-control me-2" type="text" name="q" id="id_q" placeholder="Search" aria-label="Search" style="
+            <form class="d-flex" action="{% url 'homepage' %}">
+              <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="
               width: 50vh;">
               <button class="btn btn-outline-danger ml-1" type="submit">Search</button>
             </form>
@@ -82,9 +82,6 @@
   </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-  </script>
-  <script type="text/javascript">
-    document.getElementById("id_q").value = "{{ query }}"
   </script>
 </body>
 
