@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, redirect
 from django.views.generic import View
 
+
 from pins.models import Pin
 from boards.models import Board
 from pinusers.models import PinUser

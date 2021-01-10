@@ -1,11 +1,36 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.views.generic import View
 from django.contrib.auth import logout, login, authenticate
+from django.db.models import Q
+
 from authentication.forms import LoginForm, SignUpForm
 from pinusers.models import PinUser
 from pins.models import Pin
 
 # Create your views here.
+
+def get_pin_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        pins = Pin.objects.filter(
+            Q(title_contains) |
+            Q(description_contains)
+        ).distinct()
+
+        for pin in pins:
+            queryset.append(pin)
+    return list(set(queryset))
+
+
+def search_view(request):
+    context = {}
+    html = "index.html"
+    query = ""
+    if request.GET:
+        query = request.GET['q']
+        context['query'] = str(query)
+
 
 
 class IndexView(View):
