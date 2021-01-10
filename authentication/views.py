@@ -4,6 +4,7 @@ from django.contrib.auth import logout, login, authenticate
 from authentication.forms import LoginForm, SignUpForm
 from pinusers.models import PinUser
 from pins.models import Pin
+
 # Create your views here.
 
 
@@ -63,3 +64,11 @@ class LogOutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse("login"))
+
+
+def error_view(request, exception):
+    return render('404.html')
+
+
+def server_error_view(request):
+    return render('500.html')
