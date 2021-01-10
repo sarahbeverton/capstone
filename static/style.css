@@ -6,6 +6,11 @@ body {
     display: inline-block;
 }
 
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
 @media (min-width: 576px) and (max-width: 768px)
 {
     .card-columns {

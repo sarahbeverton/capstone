@@ -1,9 +1,68 @@
 {% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-3">
+      <div
+        class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+        style="max-width: 50em"
+      >
+        <div class="card-horizontal">
+          <img
+            class=""
+            style="max-width: 30em"
+            src="/media/{{ pin.photo }}"
+            alt="Pin photo"
+          />
 
+          <div class="card-body">
+            <div>
+              <button
+                class="btn btn-outline-dark dropdown-toggle float-right"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Save to Board
+              </button>
+              <div class="dropdown-menu">
+                {% if boards %} {% for board in boards %}
+                <a
+                  class="dropdown-item"
+                  href="/board/{{ board.id }}/save/{{ pin.id }}"
+                  >{{ board.title }}</a
+                >
+                {% endfor %} {% endif %}
+              </div>
+              <a href="/pin/save/{{ pin.id }}/" class="btn btn-danger">Save</a>
+              <h4 class="card-title">{{ pin.title }}</h4>
+              <p class="card-text">{{ pin.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+<div class="container">
 <div
   class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
   style="max-width: 50em"
 >
+<div class="card-horizontal">
+    <img
+    class="card-img-left img-fluid"
+    style="max-width: 30em;"
+    src="/media/{{ pin.photo }}"
+    alt="pinphoto"
+/>
+<div class="card-block ml-1">
+    <h4 class="card-title">{{ pin.title }}</h4>
+    <h5 class="float-right">{{ pin.description }}</h5>
+    <a href="/pin/save/{{ pin.id }}/" class="btn btn-info float-right">Save</a>
+</div>
+</div>
+
   <div class="card-header">
     <h4>{{ pin.title }}</h4>
     <a href="/pin/save/{{ pin.id }}/" class="btn btn-info float-right">Save</a>
@@ -13,5 +72,7 @@
     <h5 class="float-right">{{ pin.description }}</h5>
   </div>  
 </div>
-
-{% endblock %}
+</div>
+-->
+  {% endblock %}
+</div>
