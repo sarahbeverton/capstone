@@ -44,7 +44,12 @@ class SignUpView(View):
                 first_name=data['first_name'],
                 last_name=data['last_name']
             )
-            return HttpResponseRedirect(reverse("homepage"))
+            new_user = authenticate(username=data['username'],
+                                    password=data['password'],
+                                    )
+            if new_user:
+                login(request, new_user)
+                return HttpResponseRedirect(reverse("homepage"))
 
         return render(request, "signup_form.html", {'form': form})
 
