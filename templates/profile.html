@@ -1,12 +1,18 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div class="profile-section container">
   <div class="profile-header d-flex flex-column align-items-center my-5">
-    <img style="max-width: 200px; max-height: 200px; border-radius: 50%" class="profile-pic w-50"
-      src="../static/images/avatar.png" alt="profile image" />
+    <img
+      style="max-width: 200px; max-height: 200px; border-radius: 50%"
+      class="profile-pic w-50"
+      src="../static/images/avatar.png"
+      alt="profile image"
+    />
     <h1 class="m-3 fw-bold">{{ user.first_name }} {{ user.last_name }}</h1>
     <p>{{ user.username }}</p>
     <div class="follow-details">
-      <p>0 followers &#8226; 0 following</p>
+      <p>
+        {{ pinuser.count_followers }} followers &#8226; {{ pinuser.count_following }} following
+      </p>
     </div>
   </div>
   <hr />
@@ -27,23 +33,30 @@
   <div class="card-columns">
     {% for pin in pins %}
     <div class="card shadow mx-2 rounded">
-      <a href="/pin/{{ pin.id }}"><img class="card-img-top img-responsive" src="/media/{{ pin.photo }}" alt="pinphoto" /></a>
+      <a href="/pin/{{ pin.id }}"
+        ><img
+          class="card-img-top img-responsive"
+          src="/media/{{ pin.photo }}"
+          alt="pinphoto"
+      /></a>
       <div class="card-block ml-1">
         <h4 class="card-title">{{ pin.title }}</h4>
       </div>
-        <button
-          class="btn btn-outline-dark dropdown-toggle float-right"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
+      <button
+        class="btn btn-outline-dark dropdown-toggle float-right"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Save to Board
+      </button>
+      <div class="dropdown-menu">
+        {% if boards %} {% for board in boards %}
+        <a class="dropdown-item" href="/board/{{ board.id }}/save/{{ pin.id }}"
+          >{{ board.title }}</a
         >
-          Save to Board
-        </button>
-        <div class="dropdown-menu">
-          {% if boards %} {% for board in boards %}
-          <a class="dropdown-item" href="/board/{{ board.id }}/save/{{ pin.id }}">{{ board.title }}</a>
-          {% endfor %} {% endif %}
-        </div>
+        {% endfor %} {% endif %}
+      </div>
     </div>
     {% endfor %}
   </div>

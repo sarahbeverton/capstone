@@ -21,6 +21,7 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                style="font-size: smaller"
               >
                 Save to Board
               </button>
@@ -33,12 +34,23 @@
                 >
                 {% endfor %} {% endif %}
               </div>
-              <a href="/pin/save/{{ pin.id }}/" class="btn btn-danger">Save</a>
-              <h4 class="card-title">{{ pin.title }}</h4>
+              <a
+                href="/pin/save/{{ pin.id }}/"
+                class="btn btn-danger"
+                style="font-size: smaller"
+                >Save</a
+              >
+              <hr />
+              <h6 class="card-title">{{ pin.title }}</h6>
+              <p style="font-size: small">{{ pin.author.first_name }} {{ pin.author.last_name }}<br />{{ pin.author.count_followers }} followers
+              </p>
+              <hr />
+              <p class="card-text" style="font-size: small">
+                {{ pin.description|truncatechars:200 }}
+              </p>
               {% if pin.url %}
-              <a href="{{ pin.url }}">Go to source</a>
+              <a href="{{ pin.url }}" style="font-size: small">Go to source</a>
               {% endif %}
-              <p class="card-text">{{ pin.description|truncatechars:300 }}</p>
             </div>
           </div>
         </div>
