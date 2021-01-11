@@ -29,9 +29,7 @@ class AddBoardView(LoginRequiredMixin, View):
                 description=data['description'],
                 user=current_user
             )
-            # will change below to profile page once that url is created
-            return HttpResponseRedirect(reverse("homepage"))
-        # need to add error 400, 500 handling
+            return HttpResponseRedirect(reverse("profile"))
 
 
 class BoardView(LoginRequiredMixin, View):
