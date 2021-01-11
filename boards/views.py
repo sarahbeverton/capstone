@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.views.generic import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from boards.models import Board
 from boards.forms import BoardForm
@@ -8,7 +9,7 @@ from pins.models import Pin
 # Create your views here.
 
 
-class AddBoardView(View):
+class AddBoardView(LoginRequiredMixin, View):
     form_class = BoardForm
 
     def get(self, request):
@@ -33,7 +34,7 @@ class AddBoardView(View):
         # need to add error 400, 500 handling
 
 
-class BoardView(View):
+class BoardView(LoginRequiredMixin, View):
     def get(self, request, board_id):
         my_board = Board.objects.get(id=board_id)
         board_pins = my_board.pins.values()
@@ -42,7 +43,7 @@ class BoardView(View):
         return render(request, html, context)
 
 
-class SaveToBoardView(View):
+class SaveToBoardView(LoginRequiredMixin, View):
     def get(self, request, pin_id, board_id):
         current_user = PinUser.objects.get(username=request.user.username)
         my_pin = Pin.objects.get(id=pin_id)

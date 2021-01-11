@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect
 from django.views.generic import View
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from pins.models import Pin
 from boards.models import Board
@@ -19,14 +19,14 @@ class PinView(View):
         return render(request, html, context)
 
 
-class SaveView(View):
+class SaveView(LoginRequiredMixin, View):
     def get(self, request, pin_id):
         my_pin = Pin.objects.get(id=pin_id)
         request.user.pins.add(my_pin)
         return redirect("profile")
 
 
-class AddPinView(View):
+class AddPinView(LoginRequiredMixin, View):
     form_class = PinForm
 
     def get(self, request):
