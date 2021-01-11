@@ -31,11 +31,22 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Following</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Following
+              </a>
+              {% if following %}
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                
+                {% for pinuser in following %}
+                <li><a class="dropdown-item" href="{% url 'profile' pinuser.username %}">{{ pinuser.username }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
             </li>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="
+            <form class="d-flex" action="{% url 'homepage' %}">
+              <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="
               width: 50vh;">
               <button class="btn btn-outline-danger ml-1" type="submit">Search</button>
             </form>
@@ -46,6 +57,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="{% url 'addpin' %}">Add pin</a></li>
+                <li><a class="dropdown-item" href="{% url 'addboard' %}">Add board</a></li>
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
@@ -55,10 +67,10 @@
           {% else %}
           <ul class="navbar-nav d-flex justify-content-end" style="width:100%">
             <li class="nav-item bg-danger rounded ml-5">
-              <a class="nav-link text-light" href="login/">Log In</a>
+              <a class="nav-link text-light" href="{% url 'login' %}">Log In</a>
             </li>
             <li class="nav-item bg-secondary rounded ml-3">
-              <a class="nav-link text-light" href="signup/">Sign Up</a>
+              <a class="nav-link text-light" href="{% url 'signup' %}">Sign Up</a>
             </li>
           </ul>
           {% endif %}

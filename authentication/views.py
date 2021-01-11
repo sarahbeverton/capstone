@@ -1,16 +1,24 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.views.generic import View
 from django.contrib.auth import logout, login, authenticate
+from django.db.models import Q
+
 from authentication.forms import LoginForm, SignUpForm
 from pinusers.models import PinUser
 from pins.models import Pin
 
 # Create your views here.
 
-
 class IndexView(View):
     def get(self, request):
-        pins = Pin.objects.all().order_by('-created_at')
+        search_pin = request.GET.get('search')
+
+        if search_pin:
+            pins = Pin.objects.filter(Q(title__icontains=search_pin) |
+                                      Q(description__icontains=search_pin))
+        else:
+            pins = Pin.objects.all().order_by('-created_at')
+
         html = "index.html"
         context = {'pins': pins}
         return render(request, html, context)
@@ -36,7 +44,12 @@ class SignUpView(View):
                 first_name=data['first_name'],
                 last_name=data['last_name']
             )
-            return HttpResponseRedirect(reverse("homepage"))
+            new_user = authenticate(username=data['username'],
+                                    password=data['password'],
+                                    )
+            if new_user:
+                login(request, new_user)
+                return HttpResponseRedirect(reverse("homepage"))
 
         return render(request, "signup_form.html", {'form': form})
 
@@ -72,4 +85,3 @@ def error_view(request, exception):
 
 def server_error_view(request):
     return render('500.html')
-

@@ -17,10 +17,10 @@
 
   <div class="card-columns">
     {% for pin in pins %}
-    <div class="card shadow rounded" style="width: 18em">
+    <div class="card shadow mx-2 rounded">
       <a href="/pin/{{ pin.id }}"
         ><img
-          class="card-img-top img-fluid"
+          class="card-img-top img-responsive"
           src="/media/{{ pin.photo }}"
           alt="pinphoto"
       /></a>

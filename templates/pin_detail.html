@@ -1,17 +1,62 @@
 {% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-3">
+      <div
+        class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
+        style="max-width: 50em"
+      >
+        <div class="card-horizontal">
+          <img
+            class=""
+            style="max-width: 30em"
+            src="/media/{{ pin.photo }}"
+            alt="Pin photo"
+          />
 
-<div
-  class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
-  style="max-width: 50em"
->
-  <div class="card-header">
-    <h4>{{ pin.title }}</h4>
-    <a href="/pin/save/{{ pin.id }}/" class="btn btn-info float-right">Save</a>
+          <div class="card-body">
+            <div>
+              <button
+                class="btn btn-outline-dark dropdown-toggle float-right"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="font-size: smaller"
+              >
+                Save to Board
+              </button>
+              <div class="dropdown-menu">
+                {% if boards %} {% for board in boards %}
+                <a
+                  class="dropdown-item"
+                  href="/board/{{ board.id }}/save/{{ pin.id }}"
+                  >{{ board.title }}</a
+                >
+                {% endfor %} {% endif %}
+              </div>
+              <a
+                href="/pin/save/{{ pin.id }}/"
+                class="btn btn-danger"
+                style="font-size: smaller"
+                >Save</a
+              >
+              <hr />
+              <h6 class="card-title">{{ pin.title }}</h6>
+              <p style="font-size: small">{{ pin.author.first_name }} {{ pin.author.last_name }}<br />{{ pin.author.count_followers }} followers
+              </p>
+              <hr />
+              <p class="card-text" style="font-size: small">
+                {{ pin.description|truncatechars:200 }}
+              </p>
+              {% if pin.url %}
+              <a href="{{ pin.url }}" style="font-size: small">Go to source</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-    <img src="/media/{{ pin.photo }}" alt="pinphoto" class="rounded mx-auto" style="max-width: 30em;" />
-    <h5 class="float-right">{{ pin.description }}</h5>
-  </div>  
-</div>
 
-{% endblock %}
+  {% endblock %}
+</div>

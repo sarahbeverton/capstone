@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
+
 # Create your models here.
 
 class Pin(models.Model):
     title = models.CharField(max_length=150)
+    author = models.ForeignKey('pinusers.PinUser', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='uploads/', blank=True)
     url = models.URLField(blank=True, null=True)
     likes = models.IntegerField(default=0)
