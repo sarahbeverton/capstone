@@ -72,3 +72,4 @@ def error_view(request, exception):
 
 def server_error_view(request):
     return render('500.html')
+
