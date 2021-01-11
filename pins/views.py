@@ -39,13 +39,15 @@ class AddPinView(LoginRequiredMixin, View):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
+            current_user = PinUser.objects.get(username=request.user.username)
             my_pin = Pin.objects.create(
                 title=data['title'],
+                author=current_user,
                 description=data['description'],
                 photo=data['photo'],
                 url=data['url'],
             )
             my_pin.save()
-            # will change below to profile page once that url is created
-            return redirect("homepage")
+            request.user.pins.add(my_pin)
+            return redirect("profile")
         # need to add error 400, 500 handling
