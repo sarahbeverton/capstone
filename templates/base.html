@@ -34,17 +34,26 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
+                Actions
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="{% url 'addpin' %}">Add pin</a></li>
+                <li><a class="dropdown-item" href="{% url 'addboard' %}">Add board</a></li>
+              </ul>
+            </li>
+            <!--
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 Following
               </a>
-              
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 {% for username in following %}
                 <li><a class="dropdown-item" href="{% url 'profile' username %}">{{ username }}</a></li>
                 {% endfor %}
               </ul>
-              
-              
             </li>
+            -->
             <form class="d-flex" action="{% url 'homepage' %}">
               <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="
               width: 50vh;">
@@ -53,11 +62,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                Account
+                {{ request.user.first_name }}'s Account
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="{% url 'addpin' %}">Add pin</a></li>
-                <li><a class="dropdown-item" href="{% url 'addboard' %}">Add board</a></li>
                 <li><a class="dropdown-item" href="{% url 'profile' request.user.username %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
