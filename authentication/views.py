@@ -14,11 +14,11 @@ class IndexView(View):
         search_pin = request.GET.get('search')
 
         if search_pin:
-            pins = Pin.objects.filter(Q(title__icontains=search_pin) | 
+            pins = Pin.objects.filter(Q(title__icontains=search_pin) |
                                       Q(description__icontains=search_pin))
         else:
             pins = Pin.objects.all().order_by('-created_at')
-     
+
         html = "index.html"
         context = {'pins': pins}
         return render(request, html, context)
