@@ -29,3 +29,4 @@ class UnfollowView(LoginRequiredMixin, View):
         my_user = PinUser.objects.get(username=username)
         request.user.following.remove(my_user)
         return redirect("profile", username=username)
+

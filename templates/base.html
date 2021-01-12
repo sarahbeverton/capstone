@@ -37,6 +37,13 @@
                 Following
               </a>
               
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                {% for username in following %}
+                <li><a class="dropdown-item" href="{% url 'profile' username %}">{{ username }}</a></li>
+                {% endfor %}
+              </ul>
+              
+              
             </li>
             <form class="d-flex" action="{% url 'homepage' %}">
               <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" style="

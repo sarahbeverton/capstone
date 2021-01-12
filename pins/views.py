@@ -9,7 +9,7 @@ from pins.forms import PinForm
 
 # Create your views here.
 
-class PinView(View):
+class PinView(LoginRequiredMixin, View):
     def get(self, request, pin_id):
         my_pin = Pin.objects.get(id=pin_id)
         current_user = PinUser.objects.get(username=request.user.username)
@@ -23,7 +23,7 @@ class SaveView(LoginRequiredMixin, View):
     def get(self, request, pin_id):
         my_pin = Pin.objects.get(id=pin_id)
         request.user.pins.add(my_pin)
-        return redirect("profile")
+        return redirect("profile", username=request.user.username)
 
 
 class AddPinView(LoginRequiredMixin, View):
@@ -49,5 +49,4 @@ class AddPinView(LoginRequiredMixin, View):
             )
             my_pin.save()
             request.user.pins.add(my_pin)
-            return redirect("profile")
-        # need to add error 400, 500 handling
+            return redirect("profile", username=request.user.username)
