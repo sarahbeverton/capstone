@@ -42,8 +42,9 @@
               >
               <hr />
               <h6 class="card-title">{{ pin.title }}</h6>
-              <p style="font-size: small">{{ pin.author.first_name }} {{ pin.author.last_name }}<br />{{ pin.author.count_followers }} followers
-              </p>
+              <a href='../../profile/{{ pin.author.username }}/' style="font-size: small">{{ pin.author.first_name }} {{ pin.author.last_name }}</a>
+              <p style="font-size: small;">{{ pin.author.count_followers }} followers</p>
+              
               <hr />
               <p class="card-text" style="font-size: small">
                 {{ pin.description|truncatechars:200 }}
