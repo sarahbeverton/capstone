@@ -4,15 +4,36 @@
     <img
       style="max-width: 200px; max-height: 200px; border-radius: 50%"
       class="profile-pic w-50"
-      src="../static/images/avatar.png"
+      src="../../static/images/avatar.png"
       alt="profile image"
     />
-    <h1 class="m-3 fw-bold">{{ user.first_name }} {{ user.last_name }}</h1>
-    <p>{{ user.username }}</p>
+    <h1 class="m-3 fw-bold">{{ pinuser.first_name }} {{ pinuser.last_name }}</h1>
+    <p>{{ pinuser.username }}</p>
+    {% if pinuser not in request.user.following.all %}
+    <a href="/follow/{{ pinuser.username }}/" class="btn btn-outline-danger">Follow</a>
+    {% else %}
+    <a href="/unfollow/{{ pinuser.username }}/" class="btn btn-outline-danger">Unfollow</a>
+    {% endif %}
     <div class="follow-details">
       <p>
         {{ pinuser.count_followers }} followers &#8226; {{ pinuser.count_following }} following
       </p>
+    {% if following %}
+    <ul>
+        <p>Following:</p>
+        {% for username in following %}
+        <li>{{ username }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if followers %}
+    <ul>
+        <p>Followers:</p>
+        {% for follower in followers %}
+        <li>{{ follower.username }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     </div>
   </div>
   <hr />
