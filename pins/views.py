@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -51,3 +51,10 @@ class AddPinView(LoginRequiredMixin, View):
             request.user.pins.add(my_pin)
             return redirect("profile")
         # need to add error 400, 500 handling
+
+
+def like_view(request, pin_id):
+    pin = Pin.objects.filter(id=pin_id).first()
+    pin.likes += 1
+    pin.save()
+    return HttpResponseRedirect(reverse("pin_detail", kwargs={'pin_id': pin_id}))
