@@ -24,9 +24,9 @@ if os.path.isfile(dotenv_file):
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY="84-7oqxj7i^hf*#naze*&$94u)oj)818n&kn8@oo#(m4ah%2w#"
+#SECRET_KEY="84-7oqxj7i^hf*#naze*&$94u)oj)818n&kn8@oo#(m4ah%2w#"
 # #Do a pip install python-dotenv, then create a .env file, then add the above secret key line but remove the quotation marks, then uncomment SECRET_KEY below
-# #SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #'pinusers.context_processors.following_context_processor',
             ],
         },
     },
