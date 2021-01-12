@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, HttpResponseRedirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -29,7 +29,7 @@ class AddBoardView(LoginRequiredMixin, View):
                 description=data['description'],
                 user=current_user
             )
-            return HttpResponseRedirect(reverse("profile", username=request.user.username))
+            return redirect("profile", username=request.user.username)
 
 
 class BoardView(LoginRequiredMixin, View):
@@ -48,4 +48,4 @@ class SaveToBoardView(LoginRequiredMixin, View):
         my_board = Board.objects.get(id=board_id)
         my_board.pins.add(my_pin)
         current_user.pins.add(my_pin)
-        return HttpResponseRedirect(reverse("profile", username=request.user.username))
+        return redirect("profile", username=request.user.username)

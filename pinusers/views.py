@@ -13,7 +13,10 @@ def profile(request, username):
     user_pins = current_user.pins.values()
     following = list(current_user.following.values_list('username', flat=True))
     followers = PinUser.objects.filter(following=current_user)
-    context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user, 'following': following, 'followers': followers}
+    board_photos = []
+    for board in boards:
+        board_photos.append(board.pins.values_list('photo', flat=True))
+    context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user, 'following': following, 'followers': followers, 'board_photos': board_photos}
     return render(request, 'profile.html', context)
 
 
@@ -29,4 +32,3 @@ class UnfollowView(LoginRequiredMixin, View):
         my_user = PinUser.objects.get(username=username)
         request.user.following.remove(my_user)
         return redirect("profile", username=username)
-
