@@ -14,7 +14,7 @@
       </p>
     </div>
   </div>
-
+  {% if pins %}
   <div class="card-columns">
     {% for pin in pins %}
     <div class="card shadow mx-2 rounded bg-transparent">
@@ -31,6 +31,9 @@
     </div>
     {% endfor %}
   </div>
+  {% else %}
+    <h4>No pins found matching search</h4>
+  {% endif %}
 </div>
 
 {% endblock %}

@@ -12,10 +12,12 @@ from pins.models import Pin
 class IndexView(View):
     def get(self, request):
         search_pin = request.GET.get('search')
-
         if search_pin:
-            pins = Pin.objects.filter(Q(title__icontains=search_pin) |
-                                      Q(description__icontains=search_pin))
+            pins = Pin.objects.none()
+            for word in search_pin.split():
+                pins_each_word = Pin.objects.filter(Q(title__icontains=word) |
+                                                    Q(description__icontains=word))
+                pins = pins | pins_each_word
         else:
             pins = Pin.objects.all().order_by('-created_at')
 
