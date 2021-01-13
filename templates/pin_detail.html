@@ -9,7 +9,7 @@
         <div class="card-horizontal">
           <img
             class=""
-            style="max-width: 30em"
+            style="width: 25em; height: 100%;"
             src="/media/{{ pin.photo }}"
             alt="Pin photo"
           />
@@ -47,7 +47,7 @@
               
               <hr />
               <p class="card-text" style="font-size: small">
-                {{ pin.description|truncatechars:200 }}
+                {{ pin.description|truncatechars:350 }}
               </p>
               <a
                 href="/pin/like/{{ pin.id }}/"
@@ -55,9 +55,9 @@
                 style="font-size: smaller"
                 >Like</a
               >
-              <h4> Number of likes : {{ pin.likes }}</h4>
+              <p style="font-size: small;"> Number of likes : {{ pin.likes }}</p>
               {% if pin.url %}
-              <a href="{{ pin.url }}" style="font-size: small">Go to source</a>
+              <a href="{{ pin.url }}" target="_blank" style="font-size: small">Go to source</a>
               {% endif %}
             </div>
           </div>

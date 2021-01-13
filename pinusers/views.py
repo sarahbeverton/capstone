@@ -10,7 +10,7 @@ from boards.models import Board
 def profile(request, username):
     current_user = PinUser.objects.get(username=username)
     boards = Board.objects.filter(user=current_user)
-    user_pins = current_user.pins.values()
+    user_pins = current_user.pins.values().order_by('-created_at')
     following = list(current_user.following.values_list('username', flat=True))
     followers = PinUser.objects.filter(following=current_user)
     board_photos = []
