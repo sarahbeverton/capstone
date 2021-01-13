@@ -62,13 +62,19 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                {{ request.user.first_name }}'s Account
+                Account
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="{% url 'profile' request.user.username %}">Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
             </li>
+            <a class="navbar-brand bg-secondary rounded-circle" href="{% url 'profile' request.user.username %}" 
+          style="color: #fff;
+          font-size: medium;
+          height:32px;
+          width: 32px;
+          text-align: center;">{{ request.user.first_name.0 }}</a>
             </li>
           </ul>
           {% else %}
