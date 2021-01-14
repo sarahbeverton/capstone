@@ -38,7 +38,11 @@
     {% for photo in board_photos %}
     <div class="card shadow mx-2 rounded bg-transparent">
       <div class="card-block ml-1">
+        {% if photo.1.0 %}
         <img style="width:200px" src="/media/{{ photo.1.0 }}">
+        {% else %}
+        <h5 class="card-subtitle">There is no Pictures in this board</h5>
+        {% endif %}
         {% for board in boards %}
         {%if board.title == photo.0%}
         <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;">
