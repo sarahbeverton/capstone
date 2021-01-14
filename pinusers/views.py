@@ -7,16 +7,18 @@ from boards.models import Board
 
 # Create your views here.
 
+
 def profile(request, username):
     current_user = PinUser.objects.get(username=username)
     boards = Board.objects.filter(user=current_user)
     user_pins = current_user.pins.values().order_by('-created_at')
     following = list(current_user.following.values_list('username', flat=True))
     followers = PinUser.objects.filter(following=current_user)
-    board_photos = []
+    board_photos = {}
     for board in boards:
-        board_photos.append(board.pins.values_list('photo', flat=True))
-    context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user, 'following': following, 'followers': followers, 'board_photos': board_photos}
+        board_photos[board.title] = board.pins.values_list('photo', flat=True)
+    context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user,
+               'following': following, 'followers': followers, 'board_photos': board_photos.items()}
     return render(request, 'profile.html', context)
 
 

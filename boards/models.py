@@ -4,6 +4,7 @@ from pinusers.models import PinUser
 from pins.models import Pin
 # Create your models here.
 
+
 class Board(models.Model):
     user = models.ForeignKey(PinUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)

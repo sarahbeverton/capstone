@@ -1,12 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div class="profile-section container">
   <div class="profile-header d-flex flex-column align-items-center my-5">
-    <img
-      style="max-width: 200px; max-height: 200px; border-radius: 50%"
-      class="profile-pic w-50"
-      src="../../static/images/avatar.png"
-      alt="profile image"
-    />
+    <img style="max-width: 200px; max-height: 200px; border-radius: 50%" class="profile-pic w-50"
+      src="../../static/images/avatar.png" alt="profile image" />
     <h1 class="m-3 fw-bold">{{ pinuser.first_name }} {{ pinuser.last_name }}</h1>
     <p>{{ pinuser.username }}</p>
     {% if pinuser not in request.user.following.all %}
@@ -18,40 +14,38 @@
       <p>
         {{ pinuser.count_followers }} followers &#8226; {{ pinuser.count_following }} following
       </p>
-    {% if following %}
-    <ul>
+      {% if following %}
+      <ul>
         <p>Following:</p>
         {% for username in following %}
         <li>{{ username }}</li>
         {% endfor %}
-    </ul>
-    {% endif %}
-    {% if followers %}
-    <ul>
+      </ul>
+      {% endif %}
+      {% if followers %}
+      <ul>
         <p>Followers:</p>
         {% for follower in followers %}
         <li>{{ follower.username }}</li>
         {% endfor %}
-    </ul>
-    {% endif %}
+      </ul>
+      {% endif %}
     </div>
   </div>
   <hr />
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Your Boards</h2>
-      <!--
-      {% for board_photo in board_photos %}
-        <img src="/media/{{ board_photo.0 }}">
-      {% endfor %}
-      -->
-      {% for board in boards %}
-      <div class="card shadow mx-2 rounded bg-transparent">
-        <div class="card-block ml-1">
-          <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;"><h5 class="card-title">{{ board.title }}</h5></a>
-        </div>
+    {% for board in board_photos %}
+    <div class="card shadow mx-2 rounded bg-transparent">
+      <div class="card-block ml-1">
+        <img style="width:200px" src="/media/{{ board.1.0 }}">
+        <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;">
+          <h5 class="card-title">{{ board.0 }}</h5>
+        </a>
+      </div>
     </div>
     {% endfor %}
-    
+
   </div>
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Your Pins</h2>
@@ -60,28 +54,19 @@
   <div class="card-columns">
     {% for pin in pins %}
     <div class="card shadow mx-2 rounded bg-transparent">
-      <a href="/pin/{{ pin.id }}"
-        ><img
-          class="card-img-top img-responsive"
-          src="/media/{{ pin.photo }}"
-          alt="pinphoto"
-      /></a>
+      <a href="/pin/{{ pin.id }}"><img class="card-img-top img-responsive" src="/media/{{ pin.photo }}"
+          alt="pinphoto" /></a>
       <div class="card-block ml-1">
-        <h6 class="card-title">{{ pin.title }}</h6>
+        <h6 class="card-title">
+          {{ pin.title }}</h6>
       </div>
-      <button
-        class="btn btn-outline-dark dropdown-toggle float-right"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
+      <button class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
         Save to Board
       </button>
       <div class="dropdown-menu">
         {% if boards %} {% for board in boards %}
-        <a class="dropdown-item" href="../../board/{{ board.id }}/save/{{ pin.id }}"
-          >{{ board.title }}</a
-        >
+        <a class="dropdown-item" href="../../board/{{ board.id }}/save/{{ pin.id }}">{{ board.title }}</a>
         {% endfor %} {% endif %}
       </div>
     </div>
