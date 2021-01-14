@@ -14,8 +14,9 @@ class PinView(LoginRequiredMixin, View):
         my_pin = Pin.objects.get(id=pin_id)
         current_user = PinUser.objects.get(username=request.user.username)
         user_boards = Board.objects.filter(user=current_user)
+        user_pins = list(current_user.pins.values_list('title', flat=True))
         html = "pin_detail.html"
-        context = {'pin': my_pin, 'boards': user_boards}
+        context = {'pin': my_pin, 'boards': user_boards, 'user_pins': user_pins}
         return render(request, html, context)
 
 
@@ -24,6 +25,19 @@ class SaveView(LoginRequiredMixin, View):
         my_pin = Pin.objects.get(id=pin_id)
         request.user.pins.add(my_pin)
         return redirect("profile", username=request.user.username)
+
+
+class RemovePinView(LoginRequiredMixin, View):
+    def get(self, request, pin_id):
+        current_user = PinUser.objects.get(username=request.user.username)
+        user_boards = Board.objects.filter(user=current_user)
+        my_pin = Pin.objects.get(id=pin_id)
+        for board in user_boards:
+            board_pin_titles = list(board.pins.values_list('title', flat=True))
+            if my_pin.title in board_pin_titles:
+                board.pins.remove(my_pin)
+        current_user.pins.remove(my_pin)
+        return redirect("profile", username=current_user.username)
 
 
 class AddPinView(LoginRequiredMixin, View):
