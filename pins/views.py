@@ -1,23 +1,49 @@
-from django.shortcuts import render, reverse, redirect, HttpResponseRedirect
-from django.views.generic import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from pins.models import Pin
 from boards.models import Board
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import HttpResponseRedirect, redirect, render, reverse
+from django.views.generic import View
 from pinusers.models import PinUser
+
 from pins.forms import PinForm
+from pins.models import Comment, Pin
+
+from .forms import CommentForm
 
 # Create your views here.
+
 
 class PinView(LoginRequiredMixin, View):
     def get(self, request, pin_id):
         my_pin = Pin.objects.get(id=pin_id)
+        comments = Comment.objects.filter(pin=my_pin)
         current_user = PinUser.objects.get(username=request.user.username)
         user_boards = Board.objects.filter(user=current_user)
         user_pins = list(current_user.pins.values_list('title', flat=True))
         html = "pin_detail.html"
-        context = {'pin': my_pin, 'boards': user_boards, 'user_pins': user_pins}
+        form = CommentForm()
+        context = {'pin': my_pin, 'boards': user_boards,
+                   'user_pins': user_pins, 'comment_form': form,
+                   'comments': comments}
         return render(request, html, context)
+
+    def post(self, request, pin_id):
+        if request.method == 'POST':
+            my_pin = Pin.objects.get(id=pin_id)
+            current_user = PinUser.objects.get(username=request.user.username)
+            user_boards = Board.objects.filter(user=current_user)
+            comments = Comment.objects.filter(pin=my_pin)
+            user_pins = list(current_user.pins.values_list('title', flat=True))
+            form = CommentForm(request.POST or None)
+            html = "pin_detail.html"
+            if form.is_valid():
+                content = request.POST.get('content')
+                comment = Comment.objects.create(
+                    pin=my_pin, author=request.user, content=content)
+                comment.save()
+                context = {'pin': my_pin, 'boards': user_boards,
+                           'user_pins': user_pins, 'comment_form': form,
+                           'comments': comments}
+                return render(request, html, context)
 
 
 class SaveView(LoginRequiredMixin, View):
