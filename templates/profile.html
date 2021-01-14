@@ -36,7 +36,7 @@
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Your Boards</h2>
     {% for board_dict in board_photos %}
-    <div class="card shadow mx-2 rounded bg-transparent">
+    <div class="card shadow mx-2 rounded bg-transparent my-3">
       <div class="card-block ml-1">
         {% if board_dict.1.0 %}
         <img style="width:200px" src="/media/{{ board_dict.1.0 }}">
