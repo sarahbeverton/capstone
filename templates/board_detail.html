@@ -1,5 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
+  <h3 class="mt-3 ml-3">{{ board.title }}</h3>
+  <!--
   <div
     class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
     style="max-width: 50em"
@@ -11,7 +13,7 @@
       <h5>{{ board.description }}</h5>
     </div>
   </div>
-
+-->
   {% if board_pins %}
   <div class="card-columns">
     {% for pin in board_pins %}
