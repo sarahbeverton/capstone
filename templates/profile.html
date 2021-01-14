@@ -69,8 +69,18 @@
       <div class="card-block ml-1">
         <h6 class="card-title">{{ pin.title }}</h6>
       </div>
+      <!--
+      <a href="/"
+        class="btn btn-sm btn-danger float-left"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Remove
+      </a>
+      -->
       <button
-        class="btn btn-outline-dark dropdown-toggle float-right"
+        class="btn btn-sm btn-outline-dark dropdown-toggle float-right"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
@@ -79,7 +89,7 @@
       </button>
       <div class="dropdown-menu">
         {% if boards %} {% for board in boards %}
-        <a class="dropdown-item" href="../../board/{{ board.id }}/save/{{ pin.id }}"
+        <a class="dropdown-item" style="font-size: small; cursor: pointer;" href="../../board/{{ board.id }}/save/{{ pin.id }}"
           >{{ board.title }}</a
         >
         {% endfor %} {% endif %}
