@@ -15,10 +15,13 @@ def profile(request, username):
     following = list(current_user.following.values_list('username', flat=True))
     followers = PinUser.objects.filter(following=current_user)
     board_photos = {}
+    grab_first_photo = []
+
     for board in boards:
         board_photos[board.title] = board.pins.values_list('photo', flat=True)
     context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user,
                'following': following, 'followers': followers, 'board_photos': board_photos.items()}
+        
     return render(request, 'profile.html', context)
 
 
