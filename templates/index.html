@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
+<!--
   <div
     class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
     style="max-width: 50em"
@@ -14,8 +15,12 @@
       </p>
     </div>
   </div>
+-->
+    <div class="container m-auto w-50 py-5">
+        <p style="font-size: 14px;">Are you <em>board</em>? Welcome to Boardom Killer! Upload photos, search for new ideas, find some <em>inspiration</em> and follow other users.</p>
+    </div>
   {% if pins %}
-  <div class="card-columns">
+  <div class="card-columns mt-2">
     {% for pin in pins %}
     <div class="card shadow mx-2 rounded bg-transparent">
       <a href="/pin/{{ pin.id }}"
