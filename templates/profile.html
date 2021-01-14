@@ -35,13 +35,13 @@
   <hr />
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Your Boards</h2>
+    <div class="card-columns">
     {% for board_dict in board_photos %}
     <div class="card shadow mx-2 rounded bg-transparent">
-      <div class="card-block ml-1">
+      <div class="card-block">
+
         {% if board_dict.1.0 %}
-        <img style="width:200px" src="/media/{{ board_dict.1.0 }}">
-        {% else %}
-        <h5 class="card-subtitle">There is no Pictures in this board</h5>
+        <img class="card-img-top img-responsive" src="/media/{{ board_dict.1.0 }}">
         {% endif %}
         {% for board in boards %}
         {%if board.title == board_dict.0%}
@@ -55,6 +55,7 @@
       </div>
     </div>
     {% endfor %}
+</div>
 
   </div>
   <hr class="my-5">
@@ -71,7 +72,7 @@
         <h6 class="card-title">
           {{ pin.title }}</h6>
       </div>
-      <button class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true"
+      <button class="btn btn-sm btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
         Save to Board
       </button>
