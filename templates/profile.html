@@ -35,16 +35,16 @@
   <hr />
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Your Boards</h2>
-    {% for photo in board_photos %}
+    {% for board_dict in board_photos %}
     <div class="card shadow mx-2 rounded bg-transparent">
       <div class="card-block ml-1">
-        {% if photo.1.0 %}
-        <img style="width:200px" src="/media/{{ photo.1.0 }}">
+        {% if board_dict.1.0 %}
+        <img style="width:200px" src="/media/{{ board_dict.1.0 }}">
         {% else %}
         <h5 class="card-subtitle">There is no Pictures in this board</h5>
         {% endif %}
         {% for board in boards %}
-        {%if board.title == photo.0%}
+        {%if board.title == board_dict.0%}
         <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;">
           <h5 class="card-title">
             {{board.title}}
