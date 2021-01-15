@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container">
+  <h3 class="mt-3 ml-3">Pins from users you follow</h3>
+  <div class="card-columns">
+    {% for pin in pins %}
+    <div class="card shadow mx-2 rounded bg-transparent">
+      <a href="/pin/{{ pin.id }}"
+        ><img
+          class="card-img-top img-responsive"
+          src="/media/{{ pin.photo }}"
+          alt="pinphoto"
+      /></a>
+      <div class="card-block ml-1">
+        <h6 class="card-title">{{ pin.title }}</h6>
+        <a href="/pin/{{ pin.id }}" class="stretched-link"></a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
