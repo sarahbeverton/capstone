@@ -40,6 +40,7 @@ class PinView(LoginRequiredMixin, View):
                 comment = Comment.objects.create(
                     pin=my_pin, author=request.user, content=content)
                 comment.save()
+                form = CommentForm()
                 context = {'pin': my_pin, 'boards': user_boards,
                            'user_pins': user_pins, 'comment_form': form,
                            'comments': comments}

@@ -13,7 +13,7 @@ class PinForm(forms.Form):
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea(
-        attrs={'class': 'form-control', 'rows': 2, 'cols': 50}), label='Comment')
+        attrs={'class': 'form-control', 'rows': 2, 'cols': 50, 'placeholder': 'Add comment'}), label='Comment')
 
     class Meta:
         model = Comment
