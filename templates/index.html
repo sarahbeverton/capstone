@@ -1,24 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container">
-<!--
-  <div
-    class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
-    style="max-width: 50em"
-  >
-    <h1 class="card-header">Boardom Killer</h1>
-    <div class="card-body">
-      <p>
-        Are you board? Do you need ideas for a new recipe, or looking for some
-        inspiration to watch your favorite show? Welcome to the Boardom Killer!
-        Upload photos, search for new ideas, find some <em>inspiration</em>
-        and follow other users.
-      </p>
-    </div>
-  </div>
--->
     <div class="container m-auto w-50 py-5">
-        <p style="font-size: 14px;">Are you <em>board</em>? Welcome to Boardom Killer! Upload photos, search for new ideas, find some <em>inspiration</em> and follow other users.</p>
+        <p>Are you <em>board</em>? Welcome to Boardom Killer! Upload photos, search for new ideas, find some <em>inspiration</em> and follow other users.</p>
     </div>
+  {% if search and pins.count > 1 %}
+    <p>{{ pins.count }} results found for <span style="color: rgb(2, 119, 41)">"{{ search }}"</span></p>
+  {% elif search and pins.count == 1 %}
+    <p style="font-size: 14px;">{{ pins.count }} result found for <span style="color: rgb(2, 119, 41)">"{{ search }}"</span></p>
+  {% endif %}
   {% if pins %}
   <div class="card-columns mt-2">
     {% for pin in pins %}
@@ -37,7 +26,7 @@
     {% endfor %}
   </div>
   {% else %}
-    <h4>No pins found matching search</h4>
+    <h4>No results found for <span style="color: rgb(2, 119, 41)">"{{ search }}"</span> </h4>
   {% endif %}
 </div>
 
