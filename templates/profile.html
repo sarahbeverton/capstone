@@ -48,26 +48,47 @@
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Your Boards</h2>
     <div class="card-columns">
-      {% for board_dict in board_photos %}
-      <div class="card shadow mx-2 rounded bg-transparent my-3">
+    {% for board_dict in board_photos %}
+    <div class="card shadow mx-2 rounded bg-transparent my-3">
+      <div class="card-block">
+        {% if board_dict.1.0 %}
+        <img class="card-img-top img-responsive" src="/media/{{ board_dict.1.0 }}">
+        {% endif %}
+        {% for board in boards %}
+        {%if board.title == board_dict.0%}
+        <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;">
+          <h6 class="card-title ml-1 mb-0">
+            {{board.title}}
+          </h6>
+        </a>
+        {% if board.pins.count > 1 or board.pins.count == 0 %}
+        <p class="ml-1" style="font-size: x-small;">{{ board.pins.count }} pins</p>
+        {% else %}
+        <p class="ml-1" style="font-size: x-small;">{{ board.pins.count }} pin</p>
+        {% endif %}
+        {%endif%}
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    {% if following_pins %}
+    <div class="card shadow mx-2 rounded bg-transparent my-3">
         <div class="card-block">
-
-          {% if board_dict.1.0 %}
-          <img class="card-img-top img-responsive" src="/media/{{ board_dict.1.0 }}">
-          {% endif %}
-          {% for board in boards %}
-          {%if board.title == board_dict.0%}
-          <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;">
-            <h6 class="card-title ml-1">
-              {{board.title}}
+          <img class="card-img-top img-responsive" src="/media/{{ following_photos.0 }}">
+          <a href="../../following_pins/{{ pinuser.username }}" class="stretched-link" style="color: black; text-decoration: none;">
+            <h6 class="card-title ml-1 mb-0">
+              Pins from users you follow
             </h6>
           </a>
-          {%endif%}
-          {% endfor %}
+          {% if following_pins.count > 1 or following_pins.count == 0 %}
+          <p class="ml-1" style="font-size: x-small;">{{ following_pins.count }} pins</p>
+          {% else %}
+          <p class="ml-1" style="font-size: x-small;">{{ following_pins.count }} pin</p>
+          {% endif %}
+          {% endif %}
         </div>
       </div>
-      {% endfor %}
-    </div>
+</div>
 
   </div>
   <hr class="my-5">

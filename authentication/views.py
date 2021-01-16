@@ -23,7 +23,7 @@ class IndexView(View):
             pins = Pin.objects.all().order_by('-created_at')
 
         html = "index.html"
-        context = {'pins': pins}
+        context = {'pins': pins, 'search': search_pin}
         return render(request, html, context)
 
 
