@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect
+from boards.models import Board
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
 from django.views.generic import View
-#from django.utils import timezone
+# from django.utils import timezone
+from pins.models import Pin
 
 from pinusers.models import PinUser
-from boards.models import Board
-from pins.models import Pin
+
+from .forms import UploadProfilePic
+
 # Create your views here.
 
 
@@ -25,9 +28,21 @@ def profile(request, username):
     board_photos = {}
     for board in boards:
         board_photos[board.title] = board.pins.values_list('photo', flat=True)
+
+    form = UploadProfilePic()
+
     context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user,
                'following': following, 'followers': followers, 'board_photos': board_photos.items(),
-               'following_pins': all_following_pins, 'following_photos': following_photos}
+               'form': form}
+
+    if request.method == 'POST':
+        form = UploadProfilePic(
+            request.POST, request.FILES, instance=current_user)
+
+        if form.is_valid():
+            form.save()
+            return render(request, 'profile.html', context)
+
     return render(request, 'profile.html', context)
 
 

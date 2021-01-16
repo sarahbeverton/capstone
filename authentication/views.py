@@ -9,6 +9,7 @@ from pins.models import Pin
 
 # Create your views here.
 
+
 class IndexView(View):
     def get(self, request):
         search_pin = request.GET.get('search')
@@ -69,7 +70,7 @@ class LogInView(View):
                 request,
                 username=data['username'],
                 password=data['password'],
-                )
+            )
             if user:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', reverse("homepage")))
