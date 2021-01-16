@@ -9,11 +9,13 @@
       <img style="max-width: 200px; max-height: 200px; border-radius: 50%" class="profile-pic mr-3 w-50"
         src="/media/{{ pinuser.profile_pic }}" alt="profile image" />
       {% endif %}
+      {% if pinuser == request.user %}
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="btn btn-secondary" type="submit">Upload</button>
       </form>
+      {% endif %}
     </div>
     <h1 class="m-3 fw-bold">{{ pinuser.first_name }} {{ pinuser.last_name }}</h1>
     <p>{{ pinuser.username }}</p>

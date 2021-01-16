@@ -26,8 +26,11 @@
               <h6 class="card-title">{{ pin.title }}</h6>
               <a href='../../profile/{{ pin.author.username }}/' style="font-size: small">{{ pin.author.first_name }}
                 {{ pin.author.last_name }}</a>
+              {% if pin.author.count_followers == 1 %}
+              <p style="font-size: small;">{{ pin.author.count_followers }} follower</p>
+              {% else %}
               <p style="font-size: small;">{{ pin.author.count_followers }} followers</p>
-
+              {% endif %}
               <hr />
               <p class="card-text" style="font-size: small">
                 {{ pin.description|truncatechars:350 }}
