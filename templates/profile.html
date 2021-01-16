@@ -48,7 +48,7 @@
   </div>
   <hr />
   <div class="your-pins" style="width: 100%">
-    <h2 class="text-center">Your Boards</h2>
+    <h2 class="text-center">Boards</h2>
     <div class="card-columns">
     {% for board_dict in board_photos %}
     <div class="card shadow mx-2 rounded bg-transparent my-3">
@@ -73,7 +73,7 @@
       </div>
     </div>
     {% endfor %}
-    {% if following_pins %}
+    {% if following_pins and pinuser == request.user %}
     <div class="card shadow mx-2 rounded bg-transparent my-3">
         <div class="card-block">
           <img class="card-img-top img-responsive" src="/media/{{ following_photos.0 }}">
@@ -87,7 +87,7 @@
           {% else %}
           <p class="ml-1" style="font-size: x-small;">{{ following_pins.count }} pin</p>
           {% endif %}
-          {% endif %}
+    {% endif %}
         </div>
       </div>
 </div>
@@ -95,7 +95,7 @@
   </div>
   <hr class="my-5">
   <div class="your-pins" style="width: 100%">
-    <h2 class="text-center">Your Pins</h2>
+    <h2 class="text-center">Pins</h2>
   </div>
 
   <div class="card-columns">

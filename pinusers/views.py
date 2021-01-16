@@ -1,8 +1,8 @@
 from boards.models import Board
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.views.generic import View
-# from django.utils import timezone
 from pins.models import Pin
 
 from pinusers.models import PinUser
@@ -33,7 +33,7 @@ def profile(request, username):
 
     context = {'boards': boards, 'pins': user_pins, 'pinuser': current_user,
                'following': following, 'followers': followers, 'board_photos': board_photos.items(),
-               'form': form}
+               'form': form, 'following_pins': all_following_pins, 'following_photos': following_photos}
 
     if request.method == 'POST':
         form = UploadProfilePic(
@@ -45,7 +45,7 @@ def profile(request, username):
 
     return render(request, 'profile.html', context)
 
-
+@login_required()
 def following_pins(request, username):
     current_user = PinUser.objects.get(username=username)
     following = list(current_user.following.values_list('username', flat=True))
