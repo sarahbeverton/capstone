@@ -1,149 +1,218 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} 
+{% block content %}
 <div class="profile-section container">
   <div class="profile-header d-flex flex-column align-items-center my-5">
-    <div style="width: 100%;" class="profile-wrapper d-flex align-items-center justify-content-center pl-5">
+    <div
+      style="width: 100%"
+      class="profile-wrapper d-flex align-items-center justify-content-center pl-5"
+    >
       {% if not pinuser.profile_pic %}
-      <img style="max-width: 200px; max-height: 200px; border-radius: 50% mr-3" class="profile-pic w-50"
-        src="../../static/images/avatar.png" alt="profile image" />
+      <img
+        style="max-width: 200px; max-height: 200px; border-radius: 50%"
+        class="profile-pic mr-5 w-50"
+        src="../../static/images/avatar.png"
+        alt="profile image"
+      />
       {% else %}
-      <img style="max-width: 200px; max-height: 200px; border-radius: 50%" class="profile-pic mr-3 w-50"
-        src="/media/{{ pinuser.profile_pic }}" alt="profile image" />
+      <img
+        style="max-width: 200px; max-height: 200px; border-radius: 50%"
+        class="profile-pic mr-5 w-50"
+        src="/media/{{ pinuser.profile_pic }}"
+        alt="profile image"
+      />
       {% endif %}
-      {% if pinuser == request.user %}
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-secondary" type="submit">Upload</button>
-      </form>
-      {% endif %}
+      <div class="mt-5">
+        {% if pinuser == request.user %}
+        <form
+          method="post"
+          style="font-size: small"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %} {{ form.as_p }}
+          <button class="btn btn-secondary btn-sm" type="submit">Upload</button>
+        </form>
+        {% endif %}
+      </div>
     </div>
-    <h1 class="m-3 fw-bold">{{ pinuser.first_name }} {{ pinuser.last_name }}</h1>
+    <h1 class="m-3 fw-bold">
+      {{ pinuser.first_name }} {{ pinuser.last_name }}
+    </h1>
     <p>{{ pinuser.username }}</p>
+
+    {% if pinuser != request.user %} 
     {% if pinuser not in request.user.following.all %}
-    <a href="/follow/{{ pinuser.username }}/" class="btn btn-outline-danger">Follow</a>
+    <a href="/follow/{{ pinuser.username }}/" class="btn btn-outline-danger"
+      >Follow</a
+    >
     {% else %}
-    <a href="/unfollow/{{ pinuser.username }}/" class="btn btn-outline-danger">Unfollow</a>
+    <a href="/unfollow/{{ pinuser.username }}/" class="btn btn-outline-danger"
+      >Unfollow</a
+    >
+    {% endif %} 
     {% endif %}
+
     <div class="follow-details">
-      <p>
-        {{ pinuser.count_followers }} followers &#8226; {{ pinuser.count_following }} following
-      </p>
-      {% if following %}
+      <div class="row">
         <div class="dropdown">
-            <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button" id="dropdownMenuButton"
+          <button
+            class="btn btn-tranparent"
+            type="button"
+            id="dropdownMenuButton"
             data-toggle="dropdown"
             aria-haspopup="true"
-            aria-expanded="false">
-              Following
-            </button>
-      {% for username in following %}
+            aria-expanded="false"
+          >
+            {{ pinuser.count_following }} following
+          </button>
+          {% if following %}
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/profile/{{username}}/">{{username}}</a>
+            {% for username in following %}
+            <a class="dropdown-item" href="/profile/{{username}}/"
+              >{{username}}</a
+            >
+            {% endfor %}
           </div>
+          {% endif %}
         </div>
-      {% endfor %}
-      {% endif %}
 
-      {% if followers %}
-      <div class="dropdown">
-        <button
-        class="btn btn-secondary dropdown-toggle"
-        type="button" id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
-          Followers
-        </button>
-        {% for follower in followers %}
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/profile/{{follower.username}}/">{{follower.username}}</a>
+        <div class="mt-2">&#8226;</div>
+
+        <div class="dropdown">
+          <button
+            class="btn btn-transparent"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {% if pinuser.count_followers == 1 %} 
+            {{ pinuser.count_followers }} follower 
+            {% else %} 
+            {{ pinuser.count_followers }} followers 
+            {% endif %}
+          </button>
+          {% if followers %}
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for follower in followers %}
+            <a class="dropdown-item" href="/profile/{{follower.username}}/"
+              >{{follower.username}}</a
+            >
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
       </div>
-      {% endfor %}
-      {% endif %}
     </div>
   </div>
   {% if request.user not in followers and request.user != pinuser %}
   <div style="width: 100%">
-    <h6 class="text-center"><em>Follow this user to view their boards and pins</em></h6>
+    <h6 class="text-center">
+      <em>Follow this user to view their boards and pins</em>
+    </h6>
   </div>
   {% else %}
   <hr />
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Boards</h2>
     <div class="card-columns">
-    {% for board_dict in board_photos %}
-    <div class="card shadow mx-2 rounded bg-transparent my-3">
-      <div class="card-block">
-        {% if board_dict.1.0 %}
-        <img class="card-img-top img-responsive" src="/media/{{ board_dict.1.0 }}">
-        {% endif %}
-        {% for board in boards %}
-        {%if board.title == board_dict.0%}
-        <a href="../../board/{{ board.id }}" class="stretched-link" style="color: black; text-decoration: none;">
-          <h6 class="card-title ml-1 mb-0">
-            {{board.title}}
-          </h6>
-        </a>
-        {% if board.pins.count > 1 or board.pins.count == 0 %}
-        <p class="ml-1" style="font-size: x-small;">{{ board.pins.count }} pins</p>
-        {% else %}
-        <p class="ml-1" style="font-size: x-small;">{{ board.pins.count }} pin</p>
-        {% endif %}
-        {%endif%}
-        {% endfor %}
-      </div>
-    </div>
-    {% endfor %}
-    {% if following_pins and pinuser == request.user %}
-    <div class="card shadow mx-2 rounded bg-transparent my-3">
+      {% if following_pins and pinuser == request.user %}
+      <div class="card shadow mx-2 rounded bg-transparent my-3">
         <div class="card-block">
-          <img class="card-img-top img-responsive" src="/media/{{ following_photos.0 }}">
-          <a href="../../following_pins/{{ pinuser.username }}" class="stretched-link" style="color: black; text-decoration: none;">
-            <h6 class="card-title ml-1 mb-0">
-              Pins from users you follow
-            </h6>
+          <img
+            class="card-img-top img-responsive"
+            src="/media/{{ following_photos.0 }}"
+          />
+          <a
+            href="../../following_pins/{{ pinuser.username }}"
+            class="stretched-link"
+            style="color: black; text-decoration: none"
+          >
+            <h6 class="card-title ml-1 mb-0">Pins from users you follow</h6>
           </a>
           {% if following_pins.count > 1 or following_pins.count == 0 %}
-          <p class="ml-1" style="font-size: x-small;">{{ following_pins.count }} pins</p>
+          <p class="ml-1" style="font-size: x-small">
+            {{ following_pins.count }} pins
+          </p>
           {% else %}
-          <p class="ml-1" style="font-size: x-small;">{{ following_pins.count }} pin</p>
+          <p class="ml-1" style="font-size: x-small">
+            {{ following_pins.count }} pin
+          </p>
           {% endif %}
-    {% endif %}
         </div>
       </div>
-</div>
-
-  </div>
-  <hr class="my-5">
-  
-  <div class="your-pins" style="width: 100%">
-    <h2 class="text-center">Pins</h2>
-  </div>
-
-  <div class="card-columns">
-    {% for pin in pins %}
-    <div class="card shadow mx-2 rounded bg-transparent">
-      <a href="/pin/{{ pin.id }}"><img class="card-img-top img-responsive" style="cursor: pointer"
-          src="/media/{{ pin.photo }}" alt="pinphoto" /></a>
-      <div class="card-block ml-1">
-        <h6 class="card-title">
-          {{ pin.title }}</h6>
+      {% endif %} 
+      {% for board_dict in board_photos %}
+      <div class="card shadow mx-2 rounded bg-transparent my-3">
+        <div class="card-block">
+          {% if board_dict.1.0 %}
+          <img
+            class="card-img-top img-responsive"
+            src="/media/{{ board_dict.1.0 }}"
+          />
+          {% endif %} 
+          {% for board in boards %} 
+          {% if board.title == board_dict.0 %}
+          <a
+            href="../../board/{{ board.id }}"
+            class="stretched-link"
+            style="color: black; text-decoration: none"
+          >
+            <h6 class="card-title ml-1 mb-0">{{board.title}}</h6>
+          </a>
+          {% if board.pins.count > 1 or board.pins.count == 0 %}
+          <p class="ml-1" style="font-size: x-small">
+            {{ board.pins.count }} pins
+          </p>
+          {% else %}
+          <p class="ml-1" style="font-size: x-small">
+            {{ board.pins.count }} pin
+          </p>
+          {% endif %} 
+          {% endif %} 
+          {% endfor %}
+        </div>
       </div>
-      <button class="btn btn-sm btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        Save to Board
-      </button>
-      <div class="dropdown-menu">
-        {% if boards %} {% for board in boards %}
-        <a class="dropdown-item" style="font-size: small; cursor: pointer;"
-          href="../../board/{{ board.id }}/save/{{ pin.id }}">{{ board.title }}</a>
-        {% endfor %} {% endif %}
-      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
+  </div>
+  <hr />
+  <div class="your-pins my-3" style="width: 100%">
+    <h2 class="text-center">Pins</h2>
+    <div class="card-columns">
+      {% for pin in pins %}
+      <div class="card shadow mx-2 rounded bg-transparent">
+        <a href="/pin/{{ pin.id }}"
+          ><img
+            class="card-img-top img-responsive"
+            style="cursor: pointer"
+            src="/media/{{ pin.photo }}"
+            alt="pinphoto"
+        /></a>
+        <div class="card-block ml-1">
+          <h6 class="card-title">{{ pin.title }}</h6>
+        </div>
+        <button
+          class="btn btn-sm btn-outline-dark dropdown-toggle float-right"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Save to Board
+        </button>
+        <div class="dropdown-menu">
+          {% if boards %} {% for board in boards %}
+          <a
+            class="dropdown-item"
+            style="font-size: small; cursor: pointer"
+            href="../../board/{{ board.id }}/save/{{ pin.id }}"
+            >{{ board.title }}</a
+          >
+          {% endfor %} {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
   {% endif %}
 </div>
