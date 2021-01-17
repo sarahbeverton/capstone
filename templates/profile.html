@@ -29,20 +29,39 @@
         {{ pinuser.count_followers }} followers &#8226; {{ pinuser.count_following }} following
       </p>
       {% if following %}
-      <ul>
-        <p>Following:</p>
-        {% for username in following %}
-        <li>{{ username }}</li>
-        {% endfor %}
-      </ul>
+        <div class="dropdown">
+            <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button" id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+              Following
+            </button>
+      {% for username in following %}
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/profile/{{username}}/">{{username}}</a>
+          </div>
+        </div>
+      {% endfor %}
       {% endif %}
+
       {% if followers %}
-      <ul>
-        <p>Followers:</p>
+      <div class="dropdown">
+        <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button" id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false">
+          Followers
+        </button>
         {% for follower in followers %}
-        <li>{{ follower.username }}</li>
-        {% endfor %}
-      </ul>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/profile/{{follower.username}}/">{{follower.username}}</a>
+        </div>
+      </div>
+      {% endfor %}
       {% endif %}
     </div>
   </div>
