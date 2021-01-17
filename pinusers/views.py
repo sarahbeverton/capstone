@@ -45,6 +45,7 @@ def profile(request, username):
 
     return render(request, 'profile.html', context)
 
+
 @login_required()
 def following_pins(request, username):
     current_user = PinUser.objects.get(username=username)
