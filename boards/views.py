@@ -49,3 +49,11 @@ class SaveToBoardView(LoginRequiredMixin, View):
         my_board.pins.add(my_pin)
         current_user.pins.add(my_pin)
         return redirect("profile", username=request.user.username)
+
+
+class RemoveBoardView(LoginRequiredMixin, View):
+    def get(self, request, board_id):
+        current_user = PinUser.objects.get(username=request.user.username)
+        my_board = Board.objects.get(id=board_id)
+        my_board.delete()
+        return redirect("profile", username=current_user.username)

@@ -15,3 +15,15 @@ class Pin(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    pin = models.ForeignKey(
+        Pin, on_delete=models.CASCADE, related_name='comment')
+    author = models.ForeignKey(
+        'pinusers.PinUser', on_delete=models.CASCADE, related_name='user')
+    content = models.TextField()
+    created_at = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.content}'

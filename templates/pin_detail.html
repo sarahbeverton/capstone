@@ -1,71 +1,57 @@
-
 {% extends 'base.html' %} {% block content %}
 <div class="container">
   <div class="row">
     <div class="col-12 mt-3">
-      <div
-        class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded"
-        style="max-width: 50em"
-      >
+      <div class="card shadow p-1 mb-3 mt-3 mx-auto bg-white rounded" style="max-width: 50em">
         <div class="card-horizontal">
-          <img
-            class=""
-            style="width: 25em; height: 100%;"
-            src="/media/{{ pin.photo }}"
-            alt="Pin photo"
-          />
+          <img class="" style="width: 25em; height: 100%;" src="/media/{{ pin.photo }}" alt="Pin photo" />
 
           <div class="card-body">
             <div>
-              <button
-                class="btn btn-outline-dark dropdown-toggle float-right"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                style="font-size: smaller"
-              >
+              <button class="btn btn-outline-dark dropdown-toggle float-right" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="font-size: smaller">
                 Save to Board
               </button>
               <div class="dropdown-menu">
                 {% if boards %} {% for board in boards %}
-                <a
-                  class="dropdown-item"
-                  href="/board/{{ board.id }}/save/{{ pin.id }}"
-                  >{{ board.title }}</a
-                >
+                <a class="dropdown-item" href="/board/{{ board.id }}/save/{{ pin.id }}">{{ board.title }}</a>
                 {% endfor %} {% endif %}
               </div>
-                {% if pin.title not in user_pins %}
-                <a href="/pin/save/{{ pin.id }}/"
-                   class="btn btn-danger"
-                   style="font-size: smaller"
-                   >Save</a
-                >
-               {% else %}
-                <a href="/pin/remove/{{ pin.id }}/"
-                   class="btn btn-danger"
-                   style="font-size: smaller"
-                >Remove Pin</a>
-               {% endif %}
+              {% if pin.title not in user_pins %}
+              <a href="/pin/save/{{ pin.id }}/" class="btn btn-danger" style="font-size: smaller">Save</a>
+              {% else %}
+              <a href="/pin/remove/{{ pin.id }}/" class="btn btn-danger" style="font-size: smaller">Remove Pin</a>
+              {% endif %}
               <hr />
               <h6 class="card-title">{{ pin.title }}</h6>
-              <a href='../../profile/{{ pin.author.username }}/' style="font-size: small">{{ pin.author.first_name }} {{ pin.author.last_name }}</a>
+              <a href='../../profile/{{ pin.author.username }}/' style="font-size: small">{{ pin.author.first_name }}
+                {{ pin.author.last_name }}</a>
+              {% if pin.author.count_followers == 1 %}
+              <p style="font-size: small;">{{ pin.author.count_followers }} follower</p>
+              {% else %}
               <p style="font-size: small;">{{ pin.author.count_followers }} followers</p>
-              
+              {% endif %}
               <hr />
               <p class="card-text" style="font-size: small">
                 {{ pin.description|truncatechars:350 }}
               </p>
-              <a
-                href="/pin/like/{{ pin.id }}/"
-                class="btn btn-danger"
-                style="font-size: smaller"
-                >Like</a
-              >
+              <a href="/pin/like/{{ pin.id }}/" class="btn btn-danger" style="font-size: smaller">Like</a>
               <p style="font-size: small;"> Number of likes : {{ pin.likes }}</p>
               {% if pin.url %}
               <a href="{{ pin.url }}" target="_blank" style="font-size: small">Go to source</a>
               {% endif %}
+              {% for comment in comments %}
+                <p>{{ comment.content }} - {{comment.author}}
+                  <br>
+                  <small class="text-secondary">{{comment.created_at}}</small>
+                </p>
+              {% endfor %}
+
+              <form class="mt-5" method="POST">
+                {% csrf_token %}
+                {{comment_form.as_p}}
+                  <input type="submit" value="Submit" class="btn btn-primary" />
+              </form>
             </div>
           </div>
         </div>
