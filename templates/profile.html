@@ -65,6 +65,11 @@
       {% endif %}
     </div>
   </div>
+  {% if request.user not in followers and request.user != pinuser %}
+  <div style="width: 100%">
+    <h6 class="text-center"><em>Follow this user to view their boards and pins</em></h6>
+  </div>
+  {% else %}
   <hr />
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Boards</h2>
@@ -113,6 +118,7 @@
 
   </div>
   <hr class="my-5">
+  
   <div class="your-pins" style="width: 100%">
     <h2 class="text-center">Pins</h2>
   </div>
@@ -139,5 +145,6 @@
     </div>
     {% endfor %}
   </div>
+  {% endif %}
 </div>
 {% endblock %}
