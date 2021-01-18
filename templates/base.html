@@ -63,7 +63,7 @@
           <li>
           {% if request.user.profile_pic %}
           <a href="{% url 'profile' request.user.username %}">
-          <img src="/media/{{ request.user.profile_pic }}" style="max-width: 32px; max-height: 32px; border-radius: 50%" alt="profile_pic"></a>
+          <img src="/media/{{ request.user.profile_pic }}" style="width: 32px; height: 32px; border-radius: 50%" alt="profile_pic"></a>
           {% else %}
             <a class="navbar-brand bg-secondary rounded-circle" href="{% url 'profile' request.user.username %}" 
           style="color: #fff;
