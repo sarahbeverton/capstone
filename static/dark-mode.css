@@ -7,6 +7,11 @@
     color: #eee;
 }
 
+[data-theme='dark'] .navbar-toggler span, [data-theme='dark'] .nav-link {
+  background-color: transparent;
+  color: #eee !important; 
+}
+
 [data-theme='dark'] .bg-light {
     background-color: #333 !important;
 }
