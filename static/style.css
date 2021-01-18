@@ -23,6 +23,12 @@ body {
     cursor: zoom-in;
 }
 
+.darkMode {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    margin: 0.4em 0 0 0.3em;
+}
 
 @media (min-width: 360px)
 {
