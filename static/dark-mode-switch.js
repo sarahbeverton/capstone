@@ -1,13 +1,13 @@
+const navbar = document.querySelector('.navbar');
 const darkSwitch = document.getElementById('darkSwitch');
 window.addEventListener('load', () => {
-  if (darkSwitch) {
-    initTheme();
-    darkSwitch.addEventListener('change', () => {
-      resetTheme();
-    });
-  }
+    if (darkSwitch) {
+        initTheme();
+        darkSwitch.addEventListener('change', () => {
+            resetTheme();
+        });
+    }
 });
-
 
 /**
  * Summary: function that adds or removes the attribute 'data-theme' depending if
@@ -21,14 +21,16 @@ window.addEventListener('load', () => {
  * @return {void}
  */
 function initTheme() {
-  const darkThemeSelected =
-    localStorage.getItem('darkSwitch') !== null &&
-    localStorage.getItem('darkSwitch') === 'dark';
-  darkSwitch.checked = darkThemeSelected;
-  darkThemeSelected ? document.body.setAttribute('data-theme', 'dark') :
-    document.body.removeAttribute('data-theme');
+    const darkThemeSelected =
+        localStorage.getItem('darkSwitch') !== null &&
+        localStorage.getItem('darkSwitch') === 'dark';
+    darkSwitch.checked = darkThemeSelected;
+    if (darkThemeSelected) {
+        document.body.setAttribute('data-theme', 'dark');
+    } else {
+        document.body.removeAttribute('data-theme');
+    }
 }
-
 
 /**
  * Summary: resetTheme checks if the switch is 'on' or 'off' and if it is toggled
@@ -37,11 +39,15 @@ function initTheme() {
  * @return {void}
  */
 function resetTheme() {
-  if (darkSwitch.checked) {
-    document.body.setAttribute('data-theme', 'dark');
-    localStorage.setItem('darkSwitch', 'dark');
-  } else {
-    document.body.removeAttribute('data-theme');
-    localStorage.removeItem('darkSwitch');
-  }
+    if (darkSwitch.checked) {
+      document.body.setAttribute('data-theme', 'dark');
+      localStorage.setItem('darkSwitch', 'dark');
+      navbar.classList.remove('navbar-light');
+      navbar.classList.add('navbar-dark');
+    } else {
+        document.body.removeAttribute('data-theme');
+        localStorage.removeItem('darkSwitch');
+        navbar.classList.remove('navbar-dark');
+        navbar.classList.add('navbar-light');
+    }
 }
