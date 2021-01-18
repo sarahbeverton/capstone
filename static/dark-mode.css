@@ -1,17 +1,20 @@
-[data-theme="dark"] {
+[data-theme='dark'],
+[data-theme='dark'] .navbar a,
+[data-theme='dark'] .btn,
+[data-theme='dark'] .navbar,
+[data-theme='dark'] .card-title {
     background-color: #111 !important;
     color: #eee;
-  }
-  
-  [data-theme="dark"] .bg-light {
+}
+
+[data-theme='dark'] .bg-light {
     background-color: #333 !important;
-  }
-  
-  [data-theme="dark"] .bg-white {
+}
+
+[data-theme='dark'] .bg-white {
     background-color: #000 !important;
-  }
-  
-  [data-theme="dark"] .bg-black {
+}
+
+[data-theme='dark'] .bg-black {
     background-color: #eee !important;
-  }
-  
+}

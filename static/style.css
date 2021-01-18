@@ -6,7 +6,11 @@ body {
 }
 
 .navbar {
-    background-color: #bed1ec;
+    background-color: #bed1ec
+}
+
+.navbar a {
+    color: #333
 }
 
 .card {
@@ -22,9 +26,7 @@ body {
     cursor: zoom-in;
 }
 
-
-@media (min-width: 360px)
-{
+@media (min-width: 360px) {
     .card-columns {
         -webkit-column-count: 1;
         -moz-column-count: 1;
@@ -32,8 +34,7 @@ body {
     }
 }
 
-@media (min-width: 576px)
-{
+@media (min-width: 576px) {
     .card-columns {
         -webkit-column-count: 2;
         -moz-column-count: 2;
@@ -41,8 +42,7 @@ body {
     }
 }
 
-@media (min-width: 768px) 
-{
+@media (min-width: 768px) {
     .card-columns {
         -webkit-column-count: 3;
         -moz-column-count: 3;
@@ -50,8 +50,7 @@ body {
     }
 }
 
-@media (min-width: 992px) 
-{
+@media (min-width: 992px) {
     .card-columns {
         -webkit-column-count: 4;
         -moz-column-count: 4;
@@ -59,13 +58,10 @@ body {
     }
 }
 
-@media (min-width: 1200px) 
-{
+@media (min-width: 1200px) {
     .card-columns {
         -webkit-column-count: 5;
         -moz-column-count: 5;
         column-count: 5;
     }
 }
-
-
