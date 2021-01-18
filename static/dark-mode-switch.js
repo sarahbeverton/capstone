@@ -27,8 +27,12 @@ function initTheme() {
     darkSwitch.checked = darkThemeSelected;
     if (darkThemeSelected) {
         document.body.setAttribute('data-theme', 'dark');
+        navbar.classList.remove('navbar-light');
+        navbar.classList.add('navbar-dark');
     } else {
         document.body.removeAttribute('data-theme');
+        navbar.classList.remove('navbar-dark');
+        navbar.classList.add('navbar-light');
     }
 }
 
@@ -40,10 +44,10 @@ function initTheme() {
  */
 function resetTheme() {
     if (darkSwitch.checked) {
-      document.body.setAttribute('data-theme', 'dark');
-      localStorage.setItem('darkSwitch', 'dark');
-      navbar.classList.remove('navbar-light');
-      navbar.classList.add('navbar-dark');
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('darkSwitch', 'dark');
+        navbar.classList.remove('navbar-light');
+        navbar.classList.add('navbar-dark');
     } else {
         document.body.removeAttribute('data-theme');
         localStorage.removeItem('darkSwitch');
