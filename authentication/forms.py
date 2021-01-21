@@ -10,6 +10,7 @@ class LoginForm(forms.Form):
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+
     class Meta:
         model = PinUser
         fields = (

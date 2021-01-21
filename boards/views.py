@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -24,7 +24,7 @@ class AddBoardView(LoginRequiredMixin, View):
         if form.is_valid():
             data = form.cleaned_data
             current_user = PinUser.objects.get(username=request.user.username)
-            my_board = Board.objects.create(
+            Board.objects.create(
                 title=data['title'],
                 description=data['description'],
                 user=current_user
