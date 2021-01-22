@@ -9,6 +9,11 @@ verify_ssl = true
 django = "*"
 pillow = "*"
 python-dotenv = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+django-on-heroku = "*"
+dj-database-url = "*"
+python-decouple = "*"
 
 [requires]
 python_version = "3.9"
