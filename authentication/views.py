@@ -74,6 +74,8 @@ class LogInView(View):
             if user:
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get('next', reverse("homepage")))
+            else:
+                return HttpResponseRedirect(reverse('login'))
 
 
 class LogOutView(View):
